@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verschlüsselungs-Möglichkeiten</title>
     <style>
-        body {
+body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -103,7 +103,7 @@
         <h1 id="title">Verschlüsselungen</h1>
         <div class="input-group-2">
             <input type="text" id="inputText" placeholder="Geben Sie den Text ein">
-            <select id="encryptionMethod" onchange="toggleKeyInput(); clearKeyInput()">
+            <select id="encryptionMethod" onchange="onMethodChange()">
                 <option value="method1">VIG576</option>
                 <option value="method2">AES256</option>
                 <option value="method3">3DES</option>
@@ -111,8 +111,8 @@
             </select>
         </div>
         <div class="button-group">
-            <button type="button" id="actionButton" onclick="processText()">Verschlüsseln</button>
-            <input type="text" id="aesKey" class="key-input" placeholder="Key"> 
+            <button id="actionButton" onclick="processText()">Verschlüsseln</button>
+            <input type="text" id="aesKey" class="key-input" placeholder="Key">
         </div>
         <h1 id="outputTitle">Verschlüsseltes Ergebnis:</h1>
         <textarea id="outputText" readonly></textarea>
@@ -123,8 +123,8 @@
             </select>
         </div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tweetnacl/1.0.3/nacl-fast.min.js"></script>
     <script>
         const encryptionMappings = {
             'method1': {
@@ -137,97 +137,66 @@
             }
         };
 
-        function toggleKeyInput() {
+        function onMethodChange() {
             const method = document.getElementById('encryptionMethod').value;
             const keyInput = document.getElementById('aesKey');
+            const keyRequired = method !== 'method1' && method !== 'method5';
 
-            if (method === 'method1') { 
-                keyInput.style.display = 'none'; 
-            } else { 
-                keyInput.style.display = 'block'; 
-            }
-        }
-
-        function clearKeyInput() {
-            document.getElementById('aesKey').value = '';
+            keyInput.style.display = keyRequired ? 'block' : 'none';
+            keyInput.value = '';
             document.getElementById('inputText').value = '';
             document.getElementById('outputText').value = '';
         }
 
         function processText() {
-            const inputText = document.getElementById('inputText').value;
+            const input = document.getElementById('inputText').value;
             const method = document.getElementById('encryptionMethod').value;
             const action = document.getElementById('actionMethod').value;
-            let outputText = '';
+            const key = document.getElementById('aesKey').value;
+            let result = '';
+
+            if (!input) return alert('Bitte Text eingeben.');
 
             if (method === 'method1') {
-                const mapping = encryptionMappings[method];
-                if (action === 'encrypt') {
-                    for (let char of inputText) {
-                        outputText += mapping[char] || char;
-                    }
-                } else if (action === 'decrypt') {
-                    const reversedMapping = Object.fromEntries(Object.entries(mapping).map(([k, v]) => [v, k]));
-                    for (let char of inputText) {
-                        outputText += reversedMapping[char] || char;
-                    }
-                }
-            } else if (method === 'method2') {
-                const key = document.getElementById('aesKey').value;
-                if (!key) {
-                    alert('Bitte geben Sie einen Key ein.');
-                    return;
-                }
-                if (action === 'encrypt') {
-                    outputText = CryptoJS.AES.encrypt(inputText, key).toString();
-                } else if (action === 'decrypt') {
-                    outputText = CryptoJS.AES.decrypt(inputText, key).toString(CryptoJS.enc.Utf8);
-                }
-            } else if (method === 'method3') {
-                const key = document.getElementById('aesKey').value;
-                if (!key) {
-                    alert('Bitte geben Sie einen Key ein.');
-                    return;
-                }
-                if (action === 'encrypt') {
-                    outputText = CryptoJS.TripleDES.encrypt(inputText, key).toString();
-                } else if (action === 'decrypt') {
-                    outputText = CryptoJS.TripleDES.decrypt(inputText, key).toString(CryptoJS.enc.Utf8);
-                }
-            } else if (method === 'method4') {
-                const key = document.getElementById('aesKey').value;
-                if (!key) {
-                    alert('Bitte geben Sie einen Key ein.');
-                    return;
-                }
-            } else if (method === 'method5') {
-                // BASE64
-                if (action === 'encrypt') {
-                    outputText = btoa(inputText);
-                } else if (action === 'decrypt') {
-                    outputText = atob(inputText);
+                const map = encryptionMappings[method];
+                const rev = Object.fromEntries(Object.entries(map).map(([k, v]) => [v, k]));
+                result = [...input].map(ch => (action === 'encrypt' ? map[ch] : rev[ch]) || ch).join('');
+            }
+
+            if (method === 'method2') {
+                if (!key) return alert('Bitte geben Sie einen Key ein.');
+                result = action === 'encrypt'
+                    ? CryptoJS.AES.encrypt(input, key).toString()
+                    : CryptoJS.AES.decrypt(input, key).toString(CryptoJS.enc.Utf8);
+            }
+
+            if (method === 'method3') {
+                if (!key) return alert('Bitte geben Sie einen Key ein.');
+                result = action === 'encrypt'
+                    ? CryptoJS.TripleDES.encrypt(input, key).toString()
+                    : CryptoJS.TripleDES.decrypt(input, key).toString(CryptoJS.enc.Utf8);
+            }
+
+            if (method === 'method5') {
+                try {
+                    result = action === 'encrypt' ? btoa(input) : atob(input);
+                } catch {
+                    return alert('Ungültiger BASE64-String');
                 }
             }
 
-            document.getElementById('outputText').value = outputText;
+            document.getElementById('outputText').value = result;
         }
 
         function toggleAction() {
             const action = document.getElementById('actionMethod').value;
-            const title = document.getElementById('title');
-            const button = document.getElementById('actionButton');
-            const outputTitle = document.getElementById('outputTitle');
-
-            if (action === 'encrypt') {
-                title.textContent = 'Verschlüsselung';
-                button.textContent = 'Verschlüsseln';
-                outputTitle.textContent = 'Verschlüsseltes Ergebnis:';
-            } else if (action === 'decrypt') {
-                title.textContent = 'Entschlüsselung';
-                button.textContent = 'Entschlüsseln';
-                outputTitle.textContent = 'Entschlüsselter Text:';
-            }
+            document.getElementById('title').textContent = action === 'encrypt' ? 'Verschlüsselung' : 'Entschlüsselung';
+            document.getElementById('actionButton').textContent = action === 'encrypt' ? 'Verschlüsseln' : 'Entschlüsseln';
+            document.getElementById('outputTitle').textContent = action === 'encrypt' ? 'Verschlüsseltes Ergebnis:' : 'Entschlüsselter Text:';
         }
+
+        // Initial setup
+        onMethodChange();
     </script>
 </body>
 </html>
