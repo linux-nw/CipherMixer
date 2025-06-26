@@ -1,202 +1,205 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verschlüsselungs-Möglichkeiten</title>
-    <style>
-body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #000;
-            color: #fff;
-        }
-        .container {
-            text-align: center;
-            background: rgba(34, 34, 34, 0.85);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            width: 300px;
-        }
-        input[type="text"], textarea, select {
-            width: calc(65% - 10px);
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #444;
-            border-radius: 4px;
-            background: #333;
-            color: #21888f;
-            font-size: 14px;
-        }
-        textarea {
-            width: calc(100% - 24px);
-            height: 100px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #21888f;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 14px;
-            width: calc(50% - 10px);
-            margin-right: 10px;
-        }
-
-        .key-input {
-            max-width: 100%;
-            height: 15px; 
-            padding: 4px 10px; 
-            box-sizing: content-box;
-            border: 1px solid #444;
-            background: #333;
-            color: #21888f;
-            font-size: 14px;
-            width: calc(50% - 10px);
-            margin-top: 10px; 
-            display: block;
-        }
-        button:hover {
-            background-color: #21888f;
-        }
-        .input-group-2 {
-            width: 100%; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        select {
-            width: calc(30% - 10px);
-            margin-left: 10px;
-        }
-        
-        .button-group {
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            margin-top: 10px; 
-        }
-
-        .input-group select {
-            width: calc(100% - 24px); 
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #444;
-            border-radius: 4px;
-            background: #333;
-            color: #21888f;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1 id="title">Verschlüsselungen</h1>
-        <div class="input-group-2">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Verschlüsselungs-Möglichkeiten</title>
+      <style>
+         body {
+         font-family: Arial, sans-serif;
+         margin: 0;
+         padding: 0;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+         background-color: #000;
+         color: #fff;
+         }
+          
+         .container {
+         text-align: center;
+         background: rgba(34, 34, 34, 0.85);
+         padding: 20px;
+         border-radius: 15px;
+         box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+         backdrop-filter: blur(10px);
+         width: 300px;
+         }
+          
+         input[type="text"], textarea, select {
+         width: calc(65% - 10px);
+         padding: 10px;
+         margin: 10px 0;
+         border: 1px solid #444;
+         border-radius: 4px;
+         background: #333;
+         color: #21888f;
+         font-size: 14px;
+         }
+          
+         textarea {
+         width: calc(100% - 24px);
+         height: 100px;
+         }
+          
+         button {
+         padding: 10px 20px;
+         background-color: #21888f;
+         color: #fff;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+         margin-top: 10px;
+         font-size: 14px;
+         width: calc(50% - 10px);
+         margin-right: 10px;
+         }
+          
+         .key-input {
+         max-width: 100%;
+         height: 15px; 
+         padding: 4px 10px; 
+         box-sizing: content-box;
+         border: 1px solid #444;
+         background: #333;
+         color: #21888f;
+         font-size: 14px;
+         width: calc(50% - 10px);
+         margin-top: 10px; 
+         display: block;
+         }
+         button:hover {
+         background-color: #21888f;
+         }
+          
+         .input-group-2 {
+         width: 100%; 
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         }
+          
+         select {
+         width: calc(30% - 10px);
+         margin-left: 10px;
+         }
+          
+         .button-group {
+         display: flex;
+         align-items: flex-start;
+         justify-content: center;
+         margin-top: 10px; 
+         }
+          
+         .input-group select {
+         width: calc(100% - 24px); 
+         padding: 10px;
+         margin: 10px 0;
+         border: 1px solid #444;
+         border-radius: 4px;
+         background: #333;
+         color: #21888f;
+         font-size: 14px;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <h1 id="title">Verschlüsselungen</h1>
+         <div class="input-group-2">
             <input type="text" id="inputText" placeholder="Geben Sie den Text ein">
             <select id="encryptionMethod" onchange="onMethodChange()">
-                <option value="method1">VIG576</option>
-                <option value="method2">AES256</option>
-                <option value="method3">3DES</option>
-                <option value="method5">BASE64</option>
+               <option value="method1">VIG576</option>
+               <option value="method2">AES256</option>
+               <option value="method3">3DES</option>
+               <option value="method5">BASE64</option>
             </select>
-        </div>
-        <div class="button-group">
+         </div>
+         <div class="button-group">
             <button id="actionButton" onclick="processText()">Verschlüsseln</button>
             <input type="text" id="aesKey" class="key-input" placeholder="Key">
-        </div>
-        <h1 id="outputTitle">Verschlüsseltes Ergebnis:</h1>
-        <textarea id="outputText" readonly></textarea>
-        <div class="input-group">
+         </div>
+         <h1 id="outputTitle">Verschlüsseltes Ergebnis:</h1>
+         <textarea id="outputText" readonly></textarea>
+         <div class="input-group">
             <select id="actionMethod" onchange="toggleAction()">
-                <option value="encrypt">Verschlüsseln</option>
-                <option value="decrypt">Entschlüsseln</option>
+               <option value="encrypt">Verschlüsseln</option>
+               <option value="decrypt">Entschlüsseln</option>
             </select>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script>
-        const encryptionMappings = {
-            'method1': {
-                'A': 'Ѧ', 'B': 'ß', 'C': '₡', 'D': 'Ð', 'E': 'Ế', 'F': '₣', 'G': 'Ġ', 'H': 'ᾝ', 'I': '|', 'J': 'Ӷ',
-                'K': '₭', 'L': 'Ḻ', 'M': 'Ḿ', 'N': '№', 'O': 'Ѻ', 'P': '₱', 'Q': 'Ƣ', 'R': '₹', 'S': '$', 'T': '†',
-                'U': 'Π', 'V': 'Ṽ', 'W': '₩', 'X': '✘', 'Y': 'Ỹ', 'Z': 'Ž', 'a': 'Ѧ', 'b': 'ß', 'c': '₡', 'd': 'ð',
-                'e': 'Ế', 'f': '₣', 'g': 'ġ', 'h': 'ᾝ', 'i': 'ΐ', 'j': 'Ӷ', 'k': '₭', 'l': 'Ḻ', 'm': 'ḿ', 'n': '№',
-                'o': 'ѻ', 'p': '₱', 'q': 'ƣ', 'r': '₹', 's': '$', 't': '†', 'u': 'Π', 'v': 'Ṽ', 'w': '₩', 'x': '✘',
-                'y': 'ỹ', 'z': 'Ž'
-            }
-        };
-
-        function onMethodChange() {
-            const method = document.getElementById('encryptionMethod').value;
-            const keyInput = document.getElementById('aesKey');
-            const keyRequired = method !== 'method1' && method !== 'method5';
-
-            keyInput.style.display = keyRequired ? 'block' : 'none';
-            keyInput.value = '';
-            document.getElementById('inputText').value = '';
-            document.getElementById('outputText').value = '';
-        }
-
-        function processText() {
-            const input = document.getElementById('inputText').value;
-            const method = document.getElementById('encryptionMethod').value;
-            const action = document.getElementById('actionMethod').value;
-            const key = document.getElementById('aesKey').value;
-            let result = '';
-
-            if (!input) return alert('Bitte Text eingeben.');
-
-            if (method === 'method1') {
-                const map = encryptionMappings[method];
-                const rev = Object.fromEntries(Object.entries(map).map(([k, v]) => [v, k]));
-                result = [...input].map(ch => (action === 'encrypt' ? map[ch] : rev[ch]) || ch).join('');
-            }
-
-            if (method === 'method2') {
-                if (!key) return alert('Bitte geben Sie einen Key ein.');
-                result = action === 'encrypt'
-                    ? CryptoJS.AES.encrypt(input, key).toString()
-                    : CryptoJS.AES.decrypt(input, key).toString(CryptoJS.enc.Utf8);
-            }
-
-            if (method === 'method3') {
-                if (!key) return alert('Bitte geben Sie einen Key ein.');
-                result = action === 'encrypt'
-                    ? CryptoJS.TripleDES.encrypt(input, key).toString()
-                    : CryptoJS.TripleDES.decrypt(input, key).toString(CryptoJS.enc.Utf8);
-            }
-
-            if (method === 'method5') {
-                try {
-                    result = action === 'encrypt' ? btoa(input) : atob(input);
-                } catch {
-                    return alert('Ungültiger BASE64-String');
-                }
-            }
-
-            document.getElementById('outputText').value = result;
-        }
-
-        function toggleAction() {
-            const action = document.getElementById('actionMethod').value;
-            document.getElementById('title').textContent = action === 'encrypt' ? 'Verschlüsselung' : 'Entschlüsselung';
-            document.getElementById('actionButton').textContent = action === 'encrypt' ? 'Verschlüsseln' : 'Entschlüsseln';
-            document.getElementById('outputTitle').textContent = action === 'encrypt' ? 'Verschlüsseltes Ergebnis:' : 'Entschlüsselter Text:';
-        }
-
-        // Initial setup
-        onMethodChange();
-    </script>
-</body>
+         </div>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+      <script>
+         const encryptionMappings = {
+             'method1': {
+                 'A': 'Ѧ', 'B': 'ß', 'C': '₡', 'D': 'Ð', 'E': 'Ế', 'F': '₣', 'G': 'Ġ', 'H': 'ᾝ', 'I': '|', 'J': 'Ӷ',
+                 'K': '₭', 'L': 'Ḻ', 'M': 'Ḿ', 'N': '№', 'O': 'Ѻ', 'P': '₱', 'Q': 'Ƣ', 'R': '₹', 'S': '$', 'T': '†',
+                 'U': 'Π', 'V': 'Ṽ', 'W': '₩', 'X': '✘', 'Y': 'Ỹ', 'Z': 'Ž', 'a': 'Ѧ', 'b': 'ß', 'c': '₡', 'd': 'ð',
+                 'e': 'Ế', 'f': '₣', 'g': 'ġ', 'h': 'ᾝ', 'i': 'ΐ', 'j': 'Ӷ', 'k': '₭', 'l': 'Ḻ', 'm': 'ḿ', 'n': '№',
+                 'o': 'ѻ', 'p': '₱', 'q': 'ƣ', 'r': '₹', 's': '$', 't': '†', 'u': 'Π', 'v': 'Ṽ', 'w': '₩', 'x': '✘',
+                 'y': 'ỹ', 'z': 'Ž'
+             }
+         };
+         
+         function onMethodChange() {
+             const method = document.getElementById('encryptionMethod').value;
+             const keyInput = document.getElementById('aesKey');
+             const keyRequired = method !== 'method1' && method !== 'method5';
+         
+             keyInput.style.display = keyRequired ? 'block' : 'none';
+             keyInput.value = '';
+             document.getElementById('inputText').value = '';
+             document.getElementById('outputText').value = '';
+         }
+         
+         function processText() {
+             const input = document.getElementById('inputText').value;
+             const method = document.getElementById('encryptionMethod').value;
+             const action = document.getElementById('actionMethod').value;
+             const key = document.getElementById('aesKey').value;
+             let result = '';
+         
+             if (!input) return alert('Bitte Text eingeben.');
+         
+             if (method === 'method1') {
+                 const map = encryptionMappings[method];
+                 const rev = Object.fromEntries(Object.entries(map).map(([k, v]) => [v, k]));
+                 result = [...input].map(ch => (action === 'encrypt' ? map[ch] : rev[ch]) || ch).join('');
+             }
+         
+             if (method === 'method2') {
+                 if (!key) return alert('Bitte geben Sie einen Key ein.');
+                 result = action === 'encrypt'
+                     ? CryptoJS.AES.encrypt(input, key).toString()
+                     : CryptoJS.AES.decrypt(input, key).toString(CryptoJS.enc.Utf8);
+             }
+         
+             if (method === 'method3') {
+                 if (!key) return alert('Bitte geben Sie einen Key ein.');
+                 result = action === 'encrypt'
+                     ? CryptoJS.TripleDES.encrypt(input, key).toString()
+                     : CryptoJS.TripleDES.decrypt(input, key).toString(CryptoJS.enc.Utf8);
+             }
+         
+             if (method === 'method5') {
+                 try {
+                     result = action === 'encrypt' ? btoa(input) : atob(input);
+                 } catch {
+                     return alert('Ungültiger BASE64-String');
+                 }
+             }
+         
+             document.getElementById('outputText').value = result;
+         }
+         
+         function toggleAction() {
+             const action = document.getElementById('actionMethod').value;
+             document.getElementById('title').textContent = action === 'encrypt' ? 'Verschlüsselung' : 'Entschlüsselung';
+             document.getElementById('actionButton').textContent = action === 'encrypt' ? 'Verschlüsseln' : 'Entschlüsseln';
+             document.getElementById('outputTitle').textContent = action === 'encrypt' ? 'Verschlüsseltes Ergebnis:' : 'Entschlüsselter Text:';
+         }
+         onMethodChange();
+      </script>
+   </body>
 </html>
