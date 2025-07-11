@@ -1,0 +1,6 @@
+*.js linguist-language=HTML
+*.json linguist-language=Text
+*.css linguist-language=CSS
+/images/* linguist-detectable=false
+*.txt linguist-language=Text
+*.docx linguist-language=Text
