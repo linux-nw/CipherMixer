@@ -20,4 +20,4 @@ CipherMixer is a simple static website demonstrating various encryption and enco
 3. Intended as a learning tool and concept showcase
 
 ## License
-MIT License (or your preferred license)
+MIT License
